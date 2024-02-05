@@ -6,12 +6,16 @@ branding:
   icon: git-pull-request
 inputs:
   length:      
-    description: 'length of the sha1'
+    description: 'length of the shortened sha1'
     default: '7'
+    required: false
+  variable_name:
+    description: "name of the exported env variable"
+    default: "SHA"
     required: false
 outputs:
   sha:
     description: 'shortened SHA'
 runs:
-  using: 'node12'
+  using: 'node20'
   main: 'dist/index.js'

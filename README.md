@@ -2,11 +2,9 @@
 
 `short-sha` is a GitHub Action than provides an output `sha` with the shortened commit SHA.
 
-
-> :warning: On November 16th, 2020 Github removes the `set-env` command. Version prior to v1.2 of this action *will not work*. See github [annoucement](https://github.blog/changelog/2020-10-01-github-actions-deprecating-set-env-and-add-path-commands/) for details.
-
-
 ## Usage
+
+You can access the shortened value with either `${{ steps.short-sha.outputs.sha }}` (`short-sha` being the name of the action step) or `${{ env.SHA }}`.
 
 ```yaml
 name: 'build-test'
@@ -16,21 +14,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: benjlevesque/short-sha@v1.2
+      - uses: actions/checkout@v3
+      - uses: benjlevesque/short-sha@v2.2
         id: short-sha
         with:
           length: 6
       - run: echo $SHA
-        env: 
+        env:
           SHA: ${{ steps.short-sha.outputs.sha }}
       - run: echo $SHA
-        env: 
+        env:
           SHA: ${{ env.SHA }}
 ```
 
 ## Options
 
-| Name   | Required | Default | Description                              |
-| ------ | -------- | ------- | ---------------------------------------- |
-| length | `false`  | 7       | the expected length of the shortened SHA |
+| Name          | Required | Default | Description                              |
+| ------------- | -------- | ------- | ---------------------------------------- |
+| length        | `false`  | 7       | the expected length of the shortened SHA |
+| variable_name | `false`  | `SHA`   | the name of the exported env variable    |
